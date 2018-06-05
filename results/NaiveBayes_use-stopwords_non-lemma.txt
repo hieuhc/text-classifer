@@ -1,0 +1,88 @@
+Best params: <bound method Pipeline.get_params of Pipeline(memory=None,
+     steps=[('vectorizer', TfidfVectorizer(analyzer='word', binary=False, decode_error='strict',
+        dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+        lowercase=True, max_df=0.5, max_features=None, min_df=1,
+        ngram_range=(1, 3), norm='l2', preprocessor=None, smooth_idf=Tr...sifier(estimator=MultinomialNB(alpha=0.001, class_prior=None, fit_prior=True),
+          n_jobs=1))])>
+--------------
+                 precision    recall  f1-score   support
+
+        housing       1.00      0.25      0.40         4
+            tin       1.00      0.50      0.67        12
+            lei       1.00      0.67      0.80         3
+            dlr       0.41      0.52      0.46        44
+            ipi       0.86      0.50      0.63        12
+           ship       0.86      0.66      0.75        89
+       platinum       0.00      0.00      0.00         7
+    coconut-oil       1.00      0.33      0.50         3
+            tea       0.00      0.00      0.00         4
+         copper       0.55      0.33      0.41        18
+       pet-chem       1.00      0.08      0.15        12
+        carcass       0.67      0.22      0.33        18
+           rice       0.50      0.08      0.14        24
+         nickel       0.00      0.00      0.00         1
+           zinc       1.00      0.08      0.14        13
+            wpi       0.86      0.60      0.71        10
+           gold       0.92      0.40      0.56        30
+          sugar       0.96      0.72      0.83        36
+            cpi       0.55      0.43      0.48        28
+           lead       1.00      0.07      0.13        14
+     iron-steel       0.83      0.36      0.50        14
+       rapeseed       1.00      0.44      0.62         9
+        sunseed       1.00      0.20      0.33         5
+          grain       0.77      0.72      0.74       149
+          cocoa       0.90      0.50      0.64        18
+            jet       0.00      0.00      0.00         1
+         retail       1.00      0.50      0.67         2
+         coffee       0.83      0.71      0.77        28
+            yen       0.25      0.07      0.11        14
+        soy-oil       0.50      0.09      0.15        11
+         income       1.00      0.29      0.44         7
+           jobs       1.00      0.43      0.60        21
+            gas       1.00      0.35      0.52        17
+            acq       0.97      0.84      0.90       719
+        nat-gas       0.61      0.37      0.46        30
+          wheat       0.62      0.70      0.66        71
+       interest       0.71      0.56      0.63       133
+         lumber       0.00      0.00      0.00         6
+            gnp       0.82      0.77      0.79        35
+        austdlr       0.00      0.00      0.00         0
+        oilseed       0.45      0.38      0.41        47
+       palm-oil       1.00      0.60      0.75        10
+            oat       1.00      0.17      0.29         6
+        sun-oil       0.00      0.00      0.00         2
+           heat       0.75      0.60      0.67         5
+        coconut       0.00      0.00      0.00         2
+           earn       0.98      0.94      0.96      1088
+      livestock       0.57      0.33      0.42        24
+    instal-debt       0.00      0.00      0.00         1
+       money-fx       0.70      0.72      0.71       180
+            hog       1.00      0.33      0.50         6
+        veg-oil       0.78      0.49      0.60        37
+         rubber       0.88      0.58      0.70        12
+        plywood       0.00      0.00      0.00         0
+           alum       1.00      0.13      0.23        23
+       rape-oil       0.00      0.00      0.00         3
+       reserves       0.90      0.50      0.64        18
+            bop       0.65      0.50      0.57        30
+         barley       0.60      0.43      0.50        14
+        soybean       0.53      0.27      0.36        33
+           corn       0.52      0.52      0.52        56
+            stg       0.00      0.00      0.00         0
+            dmk       0.00      0.00      0.00         4
+         silver       1.00      0.12      0.22         8
+           fuel       0.60      0.30      0.40        10
+      meal-feed       0.83      0.26      0.40        19
+          trade       0.56      0.68      0.61       117
+   money-supply       0.63      0.50      0.56        34
+        sorghum       0.67      0.20      0.31        10
+       l-cattle       0.00      0.00      0.00         2
+         cotton       0.71      0.25      0.37        20
+    inventories       0.00      0.00      0.00         0
+       soy-meal       0.33      0.08      0.12        13
+      groundnut       0.00      0.00      0.00         4
+         orange       1.00      0.36      0.53        11
+          crude       0.85      0.72      0.78       189
+strategic-metal       1.00      0.09      0.17        11
+
+    avg / total       0.84      0.71      0.76      3721
