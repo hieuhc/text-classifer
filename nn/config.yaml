@@ -1,0 +1,12 @@
+embedding_size: 50
+filter_size: [3, 4, 5]
+num_filters: 32
+l2_reg_lambda: 0.0
+learning_rate: 0.001
+decay_steps: 300
+decay_rate: 0.95
+dropout_keep_prob: 0.5
+batch_size: 32
+num_epoches: 30
+evaluate_every: 300
+checkpoint_every: 1000

@@ -3,3 +3,4 @@ data
 *.iml
 .ipynb_checkpoints/*
 __pycache__
+nn/checkpoint/model-*

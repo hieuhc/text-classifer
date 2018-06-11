@@ -4,8 +4,6 @@ import re
 import xml.sax.saxutils as saxutils
 import codecs
 import os
-from sklearn import preprocessing, model_selection
-from model import LRModel, NBModel, SVCModel, XGBModel
 
 
 NUMBER_OF_FILES = 22
@@ -22,7 +20,7 @@ def parse_reuters():
     """
     _train_text_lst, _train_label_lst, _test_text_lst, _test_label_lst = [], [], [], [] 
     for idx in range(NUMBER_OF_FILES):
-        file_path = os.path.join('data', 'reut2-0{}.sgm'.format('0{}'.format(idx) if idx < 10 else idx))
+        file_path = os.path.join('..', 'data', 'reut2-0{}.sgm'.format('0{}'.format(idx) if idx < 10 else idx))
         print('processing file {}'.format(file_path))
         with codecs.open(file_path, 'r', encoding='UTF8', errors='replace') as f:
             content = BeautifulSoup(f.read().lower(), 'html.parser')
@@ -39,13 +37,13 @@ def parse_reuters():
     return _train_text_lst, _train_label_lst, _test_text_lst, _test_label_lst
 
 
-def topics_with_occurences_gt(threshold):
+def topics_with_occurences_gt(threshold, _train_label_lst):
     """
     Filter out topics that has occurrences greater than threshold
     :param threshold:
     :return: list of remaining topics
     """
-    with open(os.path.join('data', 'all-topics-strings.lc.txt')) as t_file:
+    with open(os.path.join('..', 'data', 'all-topics-strings.lc.txt')) as t_file:
         topic_lst = [category.strip().lower() for category in t_file.readlines()]
     train_topic_count = {topic: 0 for topic in topic_lst}
     for labels in _train_label_lst:   # try with test_label_lst
@@ -57,7 +55,7 @@ def topics_with_occurences_gt(threshold):
     return topics
 
 
-def remove_minor_classes(topics):
+def remove_minor_classes(topics, _train_text_lst, _train_label_lst, _test_text_lst, _test_label_lst):
     """
     remove samples with little occurrences topics
     :param topics: topics after removal
@@ -86,51 +84,3 @@ def remove_minor_classes(topics):
     print('Train samples: %d' % len(train_label_lst))
     print('Test samples: %d' % len(test_label_lst))
     return train_text_lst, train_label_lst, test_text_lst, test_label_lst
-
-
-if __name__ == '__main__':
-
-    parser = argparse.ArgumentParser(description='Pick options to train text classifier')
-    parser.add_argument('--model', required=True, choices=['NaiveBayes', 'LR', 'SVC', 'XGBoost'],
-                        help='Which classifier to use')
-    parser.add_argument('--options', nargs='+', required=False, choices=['stopwords', 'lemmatizer'],
-                        help='Options during classifying')
-
-    args = parser.parse_args()
-    model_id = args.model
-    options = args.options
-    stop_words = None
-    lemmatizer = False
-    if options is not None and options:
-        if 'stopwords' in options:
-            stop_words = 'english'
-        if 'lemmatizer' in options:
-            lemmatizer = True
-    # read data from files
-    _train_text_lst, _train_label_lst, _test_text_lst, _test_label_lst = parse_reuters()
-
-    # remove classes with very few occurrences
-    topics_selected = topics_with_occurences_gt(threshold=3)
-    train_text_lst, train_label_lst, test_text_lst, test_label_lst = remove_minor_classes(topics_selected)
-
-    # label transformer
-    label_binarizer = preprocessing.MultiLabelBinarizer(topics_selected)
-    label_binarizer.fit(train_label_lst)
-    y_train = label_binarizer.transform(train_label_lst)
-    y_test = label_binarizer.transform(test_label_lst)
-
-    # model
-    model_name = '{}_{}_{}'.format(model_id,
-                                   'non-stopwords' if stop_words is None else 'use-stopwords',
-                                   'non-lemma' if not lemmatizer else 'use-lemma')
-    if model_id == 'NaiveBayes':
-        model = NBModel(model_name, stop_words, lemmatizer)
-    elif model_id == 'LR':
-        model = LRModel(model_name, stop_words, lemmatizer)
-    elif model_id == 'SVC':
-        model = SVCModel(model_name, stop_words, lemmatizer)
-    elif model_id == 'XGBoost':
-        model = XGBModel(model_name, stop_words, lemmatizer, max_features=10000)
-    else:
-        raise ValueError('This model %s is not supported' % model_id)
-    model.train_validate_predict(train_text_lst, y_train, test_text_lst, y_test, topics_selected)
